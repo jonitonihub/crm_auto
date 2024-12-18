@@ -1,0 +1,85 @@
+{% extends "main/base.html" %}
+
+{% block title %}Додати автомобіль{% endblock %}
+
+{% block content %}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+    th, td {
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: gray;
+    }
+</style>
+
+<div class="table-container">
+    <h2>Додати автомобіль</h2>
+
+    <!-- Форма для добавления автомобиля -->
+    <form method="POST" action="/car/create">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Параметр</th>
+                    <th scope="col">Значення</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Выпадающее меню для выбора бренда -->
+                <tr>
+                    <td>Бренд</td>
+                    <td>
+                        <select name="carBrandId" required>
+                            <option value="">Виберіть бренд</option>
+                            {% for car in cars_brands['data'] %}
+                                <option value="{{ car['id'] }}">
+                                    {{ car['title'] }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+
+                <!-- Выпадающее меню для выбора модели -->
+                <tr>
+                    <td>Модель</td>
+                    <td>
+                        <select name="carModelId" required>
+                            <option value="">Виберіть модель</option>
+                            {% for model in models_list['data'] %}
+                                <option value="{{ model['id'] }}">
+                                    {{ model['title'] }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+
+                <!-- Поле для ввода количества миль -->
+                <tr>
+                    <td>Кількість миль</td>
+                    <td>
+                        <input type="number" name="mileage" placeholder="Введіть кількість миль" required>
+                    </td>
+                </tr>
+
+                <!-- Кнопка отправки формы -->
+                <tr>
+                    <td colspan="2">
+                        <button type="submit" class="btn btn-primary">Додати автомобіль</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+{% endblock %}

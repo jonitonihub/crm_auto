@@ -1,0 +1,64 @@
+@import url('fonts.css');
+
+html, body {
+    height: 100%; /* Занимаем всю высоту окна */
+    margin: 0; /* Убираем стандартные отступы */
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background: black;
+    color: white;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Задаем минимальную высоту всей страницы */
+    overflow-x: hidden;
+}
+
+
+.header {
+    position: sticky;
+    top: 0;
+    padding: 20px;
+}
+
+
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    flex: 1 1 auto; /* Контент занимает всё оставшееся пространство */
+}
+
+footer {
+    border-top: 1px solid #ddd; /* Верхняя граница футера (опционально) */
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+}
+
+
+.logout-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff4b5c;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    border: none;
+}
+
+.logout-button:hover {
+    background-color: #e8434e;
+}

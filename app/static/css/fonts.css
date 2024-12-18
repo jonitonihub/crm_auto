@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Montserrat'; /* Назва шрифту, яку можна використовувати в стилях */
+    font-style: normal;   /* Стиль шрифту */
+    font-weight: 400;  /* Вага шрифту */
+           
+    src: url('../fonts/Montsserat/Montserrat-Regular.ttf'); /* Основний формат шрифту */
+ 
+}
+
+@font-face {
+    font-family: 'Montserrat'; /* Назва шрифту, яку можна використовувати в стилях */
+    font-style: normal;   /* Стиль шрифту */
+    font-weight: 600;  /* Вага шрифту */
+           
+    src: url('../fonts/Montsserat/Montserrat-Bold.ttf'); /* Основний формат шрифту */
+ 
+}

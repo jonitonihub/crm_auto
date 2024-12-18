@@ -1,0 +1,70 @@
+{% extends "main/base.html" %}
+
+{% block title %} Інформація про користувача {% endblock %}
+
+{% block content %}
+
+ <!-- Стили для таблицы -->
+ <style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+    th, td {
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: gray;
+    }
+</style>
+
+<div class="table-container">
+    <h2>Інформація про користувача</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Параметр</th>
+                <th scope="col">Значення</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>User ID</td>
+                <td>{{ profile['data']['userId'] }}</td>
+            </tr>
+            <tr>
+                <td>Фото</td>
+                <td>
+                    {% if profile['data']['photoFilename'] %}
+                        <img src="{{ url_for('static', filename='photos/' + profile['data']['photoFilename']) }}" alt="User Photo" width="150">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='photos/default-user.png') }}" alt="User Photo" width="150">
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>Ім'я</td>
+                <td>{{ profile['data']['name'] }}</td>
+            </tr>
+            <tr>
+                <td>Прізвище</td>
+                <td>{{ profile['data']['lastName'] }}</td>
+            </tr>
+            <!-- Якщо є дата народження та країна, додати їх -->
+            <tr>
+                <td>Дата народження</td>
+                <td>{{ profile['data'].get('dateBirth', 'Не вказано') }}</td>
+            </tr>
+            <tr>
+                <td>Країна</td>
+                <td>{{ profile['data'].get('country', 'Не вказано') }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

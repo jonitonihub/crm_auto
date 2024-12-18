@@ -1,0 +1,45 @@
+{% extends "main/base.html" %}
+
+
+
+
+<form method="post" class="form-control d-flex flex-row gap-2" id="teacherForm">
+    {{ form.csrf_token }}
+    {{ form.teacher }}
+    <input type="submit" class="btn btn-success" value="Показать">
+</form>
+
+
+
+
+
+{% block content %}
+
+<style>
+    /* Стили для таблицы */
+    table {
+        width: 100%;
+        border-collapse: separate; /* Убираем схлопывание границ */
+        border-spacing: 15px 10px; /* Расстояние между столбцами и строками */
+        margin: 20px 0;
+    }
+    th, td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #ed969e;
+    }
+    tr:hover {
+        background-color: #ddd;
+    }
+</style>
+
+
+
+{% endblock %}

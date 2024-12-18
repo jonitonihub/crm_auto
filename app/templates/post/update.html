@@ -1,0 +1,15 @@
+{% extends "main/base.html" %}
+
+{%block title%} Редактор {%endblock%}
+
+{%block content%}
+
+<form method="post" class="form-control">
+    <input value="{{ post.teacher }}" name="teacher" type="text" placeholder="Фио преподавателя" class="form-control">
+    <input value="{{ post.subject }}" name="subject" type="text" placeholder="Тема" class="form-control">
+    <input value="{{ post.student }}" name="student" type="text" placeholder="Фио студента" class="form-control">
+    <input value="Обновить" type="submit" class="btn btn-success">
+</form>
+
+
+{% endblock %}

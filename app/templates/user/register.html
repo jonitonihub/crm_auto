@@ -1,0 +1,50 @@
+{% extends "main/base.html" %}
+
+
+{% block content %}
+
+    <form method="post" enctype="multipart/form-data" class="form-control d-flex flex-column gap-2">
+        {{ form.csrf_token }}
+
+        <div class="mb-3">
+            {{ form.name.label }}
+            {{ form.name(class="form-control", placeholder="имя") }}
+        </div>
+
+
+        
+        <div class="mb-3">
+            {{ form.login.label }}
+            {{ form.login(class="form-control", placeholder="логин") }}
+            {% if form.login.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.login.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}       
+        </div>
+        
+
+
+        <div class="mb-3">
+            {{ form.avatar.label }}
+            {{ form.avatar(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password.label }}
+            {{ form.password(class="form-control", placeholder="пароль") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.confirm_password.label }}
+            {{ form.confirm_password(class="form-control", placeholder="подвердить пароль") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+
+{% endblock %}
