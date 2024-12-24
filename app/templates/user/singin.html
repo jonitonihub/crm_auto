@@ -1,0 +1,38 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data" class="form-control d-flex flex-column gap-2">
+        {{ form.csrf_token }}
+
+        <div class="mb-3">
+            {{ form.name.label }}
+            {{ form.name(class="form-control", placeholder="name") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.lastName.label }}
+            {{ form.lastName(class="form-control", placeholder="lastName") }}
+        </div>
+
+        
+        <div class="mb-3">
+            {{ form.email.label }}
+            {{ form.email(class="form-control", placeholder="email") }}
+        </div>
+
+
+        <div class="mb-3">
+            {{ form.password.label }}
+            {{ form.password(class="form-control", placeholder="password") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.repeatPassword.label }}
+            {{ form.repeatPassword(class="form-control", placeholder="password") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock %}

@@ -1,9 +1,9 @@
-from ..extensions import db, loginManager
+# from ..extensions import db, loginManager
 from datetime import datetime
 from flask_login import UserMixin
-from .post import Post
 from flask import session
 
+from ..extensions import loginManager
 
 
 
@@ -25,7 +25,6 @@ def load_user(user_id):
         # Используйте правильные имена параметров (id и email)
         return User(id=user_data['userId'], email=user_data['email'])
     return None
-
 
 
 

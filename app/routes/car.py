@@ -2,16 +2,14 @@ from flask import  Blueprint, render_template,request,redirect,flash,logging,jso
 from flask import url_for
 from flask_login import logout_user
 from ..functions import save_pictures
-from ..extensions import db, bcrypt
-from ..models.user import User
-from ..models.car import Car
 from ..forms import RegistrationForm
 from ..forms import LoginForm
 from flask_login import login_user
 from flask_login import current_user
 from flask_login import login_required
 import requests
-from .user import get_cookie
+# from .user import get_cookie
+from flask_login import current_user
 
 car = Blueprint('car', __name__)
 
@@ -22,17 +20,26 @@ import requests
 @car.route('/car', methods=['POST', 'GET'])
 @login_required
 def car_view():  
-    print("cookies_work", get_cookie())
+#    print("cookies_work", get_cookie())
+    print("cookies_from FLASK_LOGIN", request.cookies)
+    print("cookies_from FLASK_LOGIN_SESSION", request.cookies.get('session'))
+
+
     cars_url = 'https://qauto.forstudy.space/api/cars'
-    cookies=get_cookie()
+    # cookies=   get_cookie()
+
+    #cookies=   request.cookies.get('session')
+    cookies = {'session': request.cookies.get('session')}
+    print("new cook", cookies)
     # Відправляємо запит для отримання даних автомобілів з передачею cookie
     cars_response = requests.get(cars_url, headers={'accept': 'application/json'}, cookies = cookies)
+    print("Запит", cars_response)
 
     
     
     # Перевірка статусу відповіді
     if cars_response.status_code == 200:
-        print("Дані з реквесту", cars_response.text)
+#        print("Дані з реквесту", cars_response.text)
         cars_data = cars_response.json()  # Отримуємо JSON-відповідь
         cars_all = cars_data.get('data', [])  # Отримуємо список автомобілів
         
@@ -44,8 +51,6 @@ def car_view():
 
     # Передаємо дані у шаблон
     return render_template('car/car.html', cars=cars_all)
-
-
 
 
 

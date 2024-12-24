@@ -6,18 +6,12 @@ from .models.user import User
 
 
 class RegistrationForm(FlaskForm):
-    name = StringField("ФІО", validators=[DataRequired(), Length(min=2, max=100)])
-    login = StringField("Логин", validators=[DataRequired(), Length(min=2, max=100)])
+    name = StringField("имя", validators=[DataRequired(), Length(min=2, max=100)])
+    lastName = StringField("Фамілія", validators=[DataRequired(), Length(min=2, max=100)])
+    email = StringField("Логин", validators=[DataRequired(), Length(min=2, max=100)])
     password = PasswordField("Пароль", validators=[DataRequired()])
-    confirm_password = PasswordField("Подтвердить Пароль", validators=[DataRequired(), EqualTo('password')])
-    avatar = FileField("Загрузите фото", validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
+    repeatPassword = PasswordField("Подтвердить Пароль", validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Зарегистрироватся')
-    
-    def validate_login(self, login):
-        user = User.query.filter_by(login=login.data).first()
-        if user:
-            raise ValidationError('Виберете другой логин')
-    
 
 
 class LoginForm(FlaskForm):

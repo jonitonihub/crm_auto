@@ -15,31 +15,21 @@
 
 {% block content %}
 
-<style>
-    /* Стили для таблицы */
-    table {
-        width: 100%;
-        border-collapse: separate; /* Убираем схлопывание границ */
-        border-spacing: 15px 10px; /* Расстояние между столбцами и строками */
-        margin: 20px 0;
-    }
-    th, td {
-        padding: 12px;
-        border: 1px solid #ddd;
-        text-align: center;
-    }
-    th {
-        background-color: #4CAF50;
-        color: white;
-    }
-    tr:nth-child(even) {
-        background-color: #ed969e;
-    }
-    tr:hover {
-        background-color: #ddd;
-    }
-</style>
+<section id="home" class="hero">
+    <h1>Ласкаво просимо на наш сайт!</h1>
+    <p>Тут ви знайдете найкращі послуги та продукти.</p>
+</section>
 
+
+
+<section id="services" class="services">
+    <h2>Наші послуги</h2>
+    <ul>
+        <li>Послуга 1</li>
+        <li>Послуга 2</li>
+        <li>Послуга 3</li>
+    </ul>
+</section>
 
 
 {% endblock %}

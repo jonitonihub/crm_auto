@@ -5,7 +5,7 @@ from flask import  Blueprint, render_template,request,redirect,flash,logging,jso
 from flask import url_for
 from flask_login import logout_user
 from ..functions import save_pictures
-from ..extensions import db, bcrypt
+# from ..extensions import db, bcrypt
 from ..models.user import User
 from ..forms import RegistrationForm
 from ..forms import LoginForm
@@ -18,11 +18,11 @@ import requests
 user = Blueprint('user', __name__)
 
 
-def get_cookie():
-    print(f'Get cookie from User {cookie}')
-    return cookie
+# def get_cookie():
+#     print(f'Get cookie from User {cookie}')
+#     return cookie
 
-@user.route('/user/login', methods=['POST', 'GET']) 
+@user.route('/user/login', methods=['POST', 'GET'])
 def login():
     form = LoginForm()  # Форма, которую вы используете
 
@@ -57,14 +57,14 @@ def login():
             user_id = user_data.get('userId')  # ID пользователя (если есть)
             print("Юзер id", user_id)
             
-            # Сохраняем пользователя и cookies в сессию
-            session['user_data'] = {
-                'userId': user_id,
-                'email': email
-            }
-            global cookie
-            cookie= auth_response.cookies
-            print("sessions", cookie)
+            # # Сохраняем пользователя и cookies в сессию
+            # session['user_data'] = {
+            #     'userId': user_id,
+            #     'email': email
+            # }
+            # # global cookie
+            # # cookie= auth_response.cookies
+            # # print("sessions", cookie)
             
             
 
@@ -115,3 +115,83 @@ def profile():
     # Передаємо дані у шаблон
     return render_template('user/profile.html', profile=profile_data)
             
+
+
+
+@user.route('/user/register', methods=['POST', 'GET'])
+def register():
+    form = RegistrationForm()  # Форма, которую вы используете
+
+    if form.validate_on_submit():  # Проверка на отправку формы и ее валидацию
+        name = form.name.data
+        lastName = form.lastName.data
+        email = form.email.data  # Получаем email из формы
+        password = form.password.data  # Получаем пароль из формы
+        repeatPassword = form.repeatPassword.data
+
+
+        # Данные для авторизации
+        auth_url = 'https://qauto.forstudy.space/api/auth/signup'
+        auth_data = {
+            "name" : name,
+            "lastName" : lastName,
+            "email": email,
+            "password": password,
+            "repeatPassword": repeatPassword,
+
+        }
+        headers = {
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+
+        # Выполняем POST-запрос для авторизации
+        reg_response = requests.post(auth_url, json=auth_data, headers=headers)
+
+        # Проверка успешности авторизации
+        if reg_response.status_code == 201:
+            flash(f"Вітаємо, {email}. Ми успішно Зареєструвались.", "success")
+            print("Реєстрація успішна")
+            
+            # Получаем данные пользователя из ответа
+            user_data = reg_response.json().get('data', {})
+            print("Юзер дата", user_data)
+            user_id = user_data.get('userId')  # ID пользователя (если есть)
+            print("Юзер id", user_id)
+            
+            # Сохраняем пользователя и cookies в сессию
+            session['user_data'] = {
+                'userId': user_id,
+                'email': email
+            }
+
+
+            global cookie
+            cookie= reg_response.cookies
+            print("sessions", cookie)
+            
+            
+
+            # Создаем объект пользователя
+            user = User(id=user_id, email=email)
+            print("user", user)
+
+            # Входим в систему с использованием Flask-Login
+            login_user(user)
+
+            return redirect('/car')
+
+        else:
+            print("Реєстрація не вдалася", reg_response.text)
+            return "Реєстрація не вдалася", 400
+        
+        
+    return render_template('user/singin.html', form=form)
+
+
+
+
+@user.route('/', methods=['POST', 'GET'])
+def all():
+    # posts = Post.query.order_by(Post.date.desc()).all()  # Сортування за спаданням
+    return render_template('post/all.html', user=User)
